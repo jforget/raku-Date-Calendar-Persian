@@ -13,8 +13,9 @@
   "name": "Date::Calendar::Persian",
   "perl": "6.d",
   "provides": {
-      "Date::Calendar::Persian":        "lib/Date/Calendar/Persian.rakumod"
-    , "Date::Calendar::Persian::Names": "lib/Date/Calendar/Persian/Names.rakumod"
+      "Date::Calendar::Persian":         "lib/Date/Calendar/Persian.rakumod"
+    , "Date::Calendar::Persian::Common": "lib/Date/Calendar/Persian/Common.rakumod"
+    , "Date::Calendar::Persian::Names":  "lib/Date/Calendar/Persian/Names.rakumod"
   },
   "resources": [
   ],

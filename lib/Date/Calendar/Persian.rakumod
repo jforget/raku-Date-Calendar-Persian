@@ -1,11 +1,19 @@
-unit class Date::Calendar::Persian:ver<0.0.1>;
+# -*- encoding: utf-8; indent-tabs-mode: nil -*-
+
+use Date::Calendar::Strftime;
+use Date::Calendar::Persian::Names;
+use Date::Calendar::Persian::Common;
+
+unit class Date::Calendar::Persian:ver<0.0.1>:auth<cpan:JFORGET>
+      does Date::Calendar::Persian::Common
+      does Date::Calendar::Strftime;
 
 
 =begin pod
 
 =head1 NAME
 
-Date::Calendar::Persian - blah blah blah
+Date::Calendar::Persian - Conversions from / to the Persian calendar
 
 =head1 SYNOPSIS
 
