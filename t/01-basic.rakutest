@@ -1,0 +1,6 @@
+use Test;
+use Date::Calendar::Persian;
+
+pass "replace me";
+
+done-testing;
