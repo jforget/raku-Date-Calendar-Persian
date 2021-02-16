@@ -14,18 +14,88 @@ has Int $.day-of-week;
 has Int $.week-number;
 has Int $.week-year;
 
+method BUILD(Int:D :$year, Int:D :$month, Int:D :$day) {
+  $._chek-build-args($year, $month, $day);
+  $._build-from-args($year, $month, $day);
+}
+
+method _chek-build-args(Int $year, Int $month, Int $day) {
+  unless 1 ≤ $month ≤ 12 {
+    X::OutOfRange.new(:what<Month>, :got($month), :range<1..12>).throw;
+  }
+  my $limit =  month-days($year, $month);
+  unless 1 ≤ $day ≤ $limit {
+    X::OutOfRange.new(:what<Day>, :got($day), :range("1..$limit for this month and this year")).throw;
+  }
+}
+
+
+method _build-from-args(Int $year, Int $month, Int $day) {
+  $!year   = $year;
+  $!month  = $month;
+  $!day    = $day;
+
+  # computing derived attributes TODO
+  my Int $daycount   = 1;
+  my Int $dow        = 2;
+  my Int $doy        = 3;
+
+  # storing derived attributes
+  $!day-of-year = $doy;
+  $!day-of-week = $dow;
+  $!daycount    = $daycount;
+
+  # computing week-related derived attributes
+  my Int $doy-se-shanbe = $doy - $dow + 4; # day-of-year value for the nearest Se shanbe / Tuesday
+  my Int $week-year     = $year;
+  if $doy-se-shanbe ≤ 0 {
+    -- $week-year;
+    $doy          += year-days($week-year);
+    $doy-se-shanbe = $doy - $dow + 4;
+  }
+  else {
+    my $year-length = year-days($week-year);
+    if $doy-se-shanbe > $year-length {
+      $doy          -= $year-length;
+      $doy-se-shanbe = $doy - $dow + 4;
+      ++ $week-year;
+    }
+  }
+  my Int $week-number = ($doy-se-shanbe / 7).ceiling;
+
+  # storing week-related derived attributes
+  $!week-number = $week-number;
+  $!week-year   = $week-year;
+}
+
+sub month-days(Int $year, Int $month --> Int) {
+ return 31 if $month ≤ 6;
+ return 29 if $month == 12 && ! is-leap($year);
+ return 30;
+}
+
+sub year-days(Int $year --> Int) {
+ return 366 if is-leap($year);
+ return 365;
+}
+
+sub is-leap(Int $year --> Any) {
+  # TODO
+  return False;
+}
+
 =begin pod
 
 =head1 NAME
 
-Date::Calendar::Julian::Common - Behind-the-scene role for Date::Calendar::Julian and Date::Calendar::Julian::AUC
+Date::Calendar::Persian::Common - Behind-the-scene role for Date::Calendar::Persian and Date::Calendar::Persian::Astronomical
 
 =head1 DESCRIPTION
 
 This role  is not meant  to be used directly  by user programs.  It is
-meant   to    be   used    by   the    C<Date::Calendar::Julian>   and
-C<Date::Calendar::Julian::AUC>   classes.  Please   refer  to   theses
-classes' documentation.
+meant   to    be   used   by   the    C<Date::Calendar::Persian>   and
+C<Date::Calendar::Persian::Astronomical>  classes.   Please  refer  to
+theses classes' documentation.
 
 =head1 AUTHOR
 

@@ -1,0 +1,12 @@
+use Test;
+use Date::Calendar::Persian;
+
+plan 3;
+
+my Date::Calendar::Persian $d .= new(year => 1399, month => 11, day => 28);
+
+is($d.month,  11);
+is($d.day,    28);
+is($d.year, 1399);
+
+done-testing;
