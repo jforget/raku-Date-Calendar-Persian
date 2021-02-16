@@ -8,6 +8,13 @@ unit class Date::Calendar::Persian:ver<0.0.1>:auth<cpan:JFORGET>
       does Date::Calendar::Persian::Common
       does Date::Calendar::Strftime;
 
+method astro-bias {
+  astro-bias($.year);
+}
+
+our sub astro-bias(Int $yyyy) {
+  0;
+}
 
 =begin pod
 

@@ -1,12 +1,15 @@
 use Test;
 use Date::Calendar::Persian;
 
-plan 3;
+plan 6;
 
 my Date::Calendar::Persian $d .= new(year => 1399, month => 11, day => 28);
 
-is($d.month,  11);
-is($d.day,    28);
-is($d.year, 1399);
+is($d.month,        11);
+is($d.day,          28);
+is($d.year,       1399);
+is($d.daycount,  59261);
+is($d.day-of-week,   4);
+is($d.day-of-year, 334);
 
 done-testing;

@@ -36,9 +36,9 @@ method _build-from-args(Int $year, Int $month, Int $day) {
   $!day    = $day;
 
   # computing derived attributes TODO
-  my Int $daycount   = 1;
-  my Int $dow        = 2;
-  my Int $doy        = 3;
+  my Int $daycount   = persian-daycount($year, $month, $day, $.astro-bias);
+  my Int $dow        = ($daycount + 5) % 7;
+  my Int $doy        = $daycount - persian-daycount($year, 1, 0, $.astro-bias);
 
   # storing derived attributes
   $!day-of-year = $doy;
@@ -66,6 +66,23 @@ method _build-from-args(Int $year, Int $month, Int $day) {
   # storing week-related derived attributes
   $!week-number = $week-number;
   $!week-year   = $week-year;
+}
+
+# Epoch for the Persian calendar: 0622-03-19 in the Julian calendar,
+#                                 0622-03-22 in the proleptic Gregorian calendar
+my Date $persian-epoch .= new(622, 3, 22);
+
+sub persian-daycount(Int $yyyy, Int $mm, Int $dd, Int $bias) {
+  my Int $ep-base = $yyyy - 474;
+  my Int $ep-year = 474  + $ep-base % 2820;
+  my Int $nbdays = $persian-epoch.daycount    # Persian epoch's MJD
+                 + 1029983 × ($ep-base / 2820).floor
+                 + 365 × ($ep-year - 1)
+                 + ((682 × $ep-year - 110) / 2816).floor
+                 + $bias
+                 + 31 × (6 min ($mm - 1))   # 31-day months before current month
+                 + 30 × (0 max ($mm - 7))   # 30-day months before current month
+                 + $dd - 1; 
 }
 
 sub month-days(Int $year, Int $month --> Int) {
