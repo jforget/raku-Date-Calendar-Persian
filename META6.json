@@ -1,24 +1,33 @@
 {
+  "auth" : "cpan:JFORGET",
   "authors": [
     "Jean Forget"
   ],
   "build-depends": [
   ],
   "depends": [
+      "Date::Calendar::Strftime"
   ],
-  "description": "blah blah blah",
+  "description": "Conversions from / to the Persian calendar",
   "license": "Artistic-2.0",
   "name": "Date::Calendar::Persian",
   "perl": "6.d",
   "provides": {
-    "Date::Calendar::Persian": "lib/Date/Calendar/Persian.rakumod"
+      "Date::Calendar::Persian":        "lib/Date/Calendar/Persian.rakumod"
+    , "Date::Calendar::Persian::Names": "lib/Date/Calendar/Persian/Names.rakumod"
   },
   "resources": [
   ],
-  "source-url": "",
+  "source-url" : "https://github.com/jforget/raku-Date-Calendar-Hijri.git",
+  "support" : {
+    "email" : "JFORGET@cpan.org"
+  },
   "tags": [
+      "date"
+    , "calendar"
   ],
   "test-depends": [
+      "Test::META"
   ],
   "version": "0.0.1"
 }
