@@ -63,6 +63,27 @@ method _build-from-args(Int $year, Int $month, Int $day, &bias) {
   $!week-year   = $week-year;
 }
 
+method gist {
+  sprintf("%04d-%02d-%02d", $.year, $.month, $.day);
+}
+
+method month-name {
+  Date::Calendar::Persian::Names::month-name($.month);
+}
+
+method month-abbr {
+  Date::Calendar::Persian::Names::month-abbr($.month);
+}
+
+method day-name {
+  Date::Calendar::Persian::Names::day-name($.day-of-week - 1);
+}
+
+method day-abbr {
+  Date::Calendar::Persian::Names::day-abbr($.day-of-week - 1);
+}
+
+
 # Epoch for the Persian calendar: 0622-03-19 in the Julian calendar,
 #                                 0622-03-22 in the proleptic Gregorian calendar
 my Date $persian-epoch .= new(622, 3, 22);
