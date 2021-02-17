@@ -8,6 +8,11 @@ unit class Date::Calendar::Persian:ver<0.0.1>:auth<cpan:JFORGET>
       does Date::Calendar::Persian::Common
       does Date::Calendar::Strftime;
 
+method BUILD(Int:D :$year, Int:D :$month, Int:D :$day) {
+  $._chek-build-args($year, $month, $day, &astro-bias);
+  $._build-from-args($year, $month, $day, &astro-bias);
+}
+
 method astro-bias {
   astro-bias($.year);
 }

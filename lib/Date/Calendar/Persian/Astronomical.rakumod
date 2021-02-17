@@ -8,7 +8,26 @@ unit class Date::Calendar::Persian::Astronomical:ver<0.0.1>:auth<cpan:JFORGET>
       does Date::Calendar::Persian::Common
       does Date::Calendar::Strftime;
 
+method BUILD(Int:D :$year, Int:D :$month, Int:D :$day) {
+  $._chek-build-args($year, $month, $day, &astro-bias);
+  $._build-from-args($year, $month, $day, &astro-bias);
+}
 
+method astro-bias {
+  astro-bias($.year);
+}
+
+sub astro-bias(Int $yyyy) {
+  if $yyyy == 1016 | 1049 | 1078 | 1082 | 1111 | 1115 | 1144 | 1177 | 1210 | 1243 {
+    return -1;
+  }
+  if $yyyy == 1404 | 1437 | 1532 | 1565 | 1569 | 1598
+            | 1631 | 1660 | 1664 | 1693 | 1697
+            | 1726 | 1730 | 1759 | 1763 | 1788 | 1792 | 1796 {
+    return +1;
+  }
+  return 0;
+};
 
 =begin pod
 
