@@ -2,7 +2,7 @@ use Test;
 use Date::Calendar::Persian;
 use Date::Calendar::Persian::Astronomical;
 
-plan 10;
+plan 18;
 
 my Date::Calendar::Persian $d .= new(year => 1399, month => 11, day => 28);
 
@@ -12,16 +12,25 @@ is($d.year,       1399);
 is($d.daycount,  59261);
 is($d.day-of-week,   4);
 is($d.day-of-year, 334);
+is($d.week-year,  1399);
+is($d.week-number,  48);
 
 # 2025-03-21 (Gregorian) translates as 1404-01-01 with the astronomical calendar
-# and as 1404-01-02 with the arithmetic calendar
+#                               and as 1404-01-02 with the arithmetic calendar
+# see Calendarical Calculation 3rd publishing page 225
 $d .= new(year => 1404, month => 1, day => 2);
 is($d.daycount,    60755);
 is($d.day-of-year,     2);
+is($d.day-of-week,     7);
+is($d.week-year,    1403);
+is($d.week-number,    52);
 
 my  Date::Calendar::Persian::Astronomical $d1;
 $d1 .= new(year => 1404, month => 1, day => 1);
 is($d1.daycount,    60755);
 is($d1.day-of-year,     1);
+is($d1.day-of-week,     7);
+is($d1.week-year,    1403);
+is($d1.week-number,    52);
 
 done-testing;
