@@ -18,7 +18,7 @@ method _chek-build-args(Int $year, Int $month, Int $day, &bias) {
   unless 1 ≤ $month ≤ 12 {
     X::OutOfRange.new(:what<Month>, :got($month), :range<1..12>).throw;
   }
-  my $limit =  month-days($year, $month, &bias);
+  my Int $limit =  month-days($year, $month, &bias);
   unless 1 ≤ $day ≤ $limit {
     X::OutOfRange.new(:what<Day>, :got($day), :range("1..$limit for this month and this year")).throw;
   }
@@ -32,7 +32,7 @@ method _build-from-args(Int $year, Int $month, Int $day, &bias) {
 
   # computing derived attributes TODO
   my Int $daycount   = persian-daycount($year, $month, $day, &bias);
-  my Int $dow        = ($daycount + 5) % 7;
+  my Int $dow        = ($daycount + 4) % 7 + 1;
   my Int $doy        = $daycount - persian-daycount($year, 1, 0, &bias);
 
   # storing derived attributes
@@ -49,7 +49,7 @@ method _build-from-args(Int $year, Int $month, Int $day, &bias) {
     $doy-se-shanbe = $doy - $dow + 4;
   }
   else {
-    my $year-length = year-days($week-year, &bias);
+    my Int $year-length = year-days($week-year, &bias);
     if $doy-se-shanbe > $year-length {
       $doy          -= $year-length;
       $doy-se-shanbe = $doy - $dow + 4;
@@ -87,7 +87,7 @@ sub month-days(Int $year, Int $month, &bias --> Int) {
 }
 
 sub year-days(Int $year, &bias --> Int) {
- return persian-daycount($year + 1, 1, 0, &bias);
+ return persian-daycount($year + 1, 1, 0, &bias)
       - persian-daycount($year    , 1, 0, &bias);
 }
 
