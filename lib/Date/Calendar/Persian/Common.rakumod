@@ -84,6 +84,12 @@ method day-abbr {
 }
 
 
+method to-date($class = 'Date') {
+  # See "Learning Perl 6" page 177
+  my $d = ::($class).new-from-daycount($.daycount);
+  return $d;
+}
+
 # Epoch for the Persian calendar: 0622-03-19 in the Julian calendar,
 #                                 0622-03-22 in the proleptic Gregorian calendar
 my Date $persian-epoch .= new(622, 3, 22);
