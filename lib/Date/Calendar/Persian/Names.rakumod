@@ -1,28 +1,25 @@
 use v6.c;
 unit class Date::Calendar::Persian::Names:ver<0.0.1>:auth<cpan:JFORGET>;
 
-my @month-names = ( "Muharram"
-                  , "Safar"
-                  , "Rabi` al-Awal"
-                  , "Rabi` al-Thaani"
-                  , "Jumaada al-Awal"
-                  , "Jumaada al-Thaani"
-                  , "Rajab"
-                  , "Sha`ban"
-                  , "Ramadan"
-                  , "Shawwal"
-                  , "Thu al-Qi`dah"
-                  , "Thu al-Hijjah"
-
+my @month-names = ( "Farvardin"
+                  , "Ordibehesht"
+                  , "Khordad"
+                  , "Tir"
+                  , "Mordad"
+                  , "Shahrivar"
+                  , "Mehr"
+                  , "Aban"
+                  , "Azar"
+                  , "Dei"
+                  , "Bahman"
+                  , "Esfand"
 );
 
 my @month-abbr = < Far Ord Kho Tir Mor Sha
-		   Meh Aba Aza Dei Bah Esf >
+                   Meh Aba Aza Dei Bah Esf >
 ;
 
-
-
-my @day-names = ( "Shanbe"        # S 
+my @day-names = ( "Shanbe"        # S
                 , "Yek-shanbe"    # S
                 , "Do shanbe"     # M
                 , "Se shanbe"     # T
@@ -32,12 +29,12 @@ my @day-names = ( "Shanbe"        # S
 );
 
 my @day-abbr =  ( "Shn" # S
-		, "1sh" # S
-		, "2sh" # M
-		, "3sh" # T
-		, "4sh" # W
-		, "5sh" # T
-		, "Jom" # F
+                , "1sh" # S
+                , "2sh" # M
+                , "3sh" # T
+                , "4sh" # W
+                , "5sh" # T
+                , "Jom" # F
 );
 
 our sub month-name(Int:D $month --> Str) {
