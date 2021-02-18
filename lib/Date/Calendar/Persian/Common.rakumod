@@ -86,16 +86,41 @@ method day-abbr {
   Date::Calendar::Persian::Names::day-abbr($.day-of-week - 1);
 }
 
+method new-from-date($date) {
+  $.new-from-daycount($date.daycount);
+}
+
+# Epoch for the Persian calendar: 0622-03-19 in the Julian calendar,
+#                                 0622-03-22 in the proleptic Gregorian calendar
+my Date $persian-epoch .= new(622, 3, 22);
+
+
+method new-from-daycount-and-bias(Int $day-count, $bias-fct) {
+  my Int $pers-day-count = $day-count - $persian-epoch.daycount + 1;
+  my Int $yyyy = ($pers-day-count / 365).ceiling;
+  while persian-daycount($yyyy, 1, 1, $bias-fct) > $day-count {
+    -- $yyyy;
+  }
+  my Int $day-of-year = 1 + $day-count - persian-daycount($yyyy, 1, 1, $bias-fct);
+  my Int $mm;
+  my Int $dd;
+  if $day-of-year ≤ 186 {
+    $mm =  ($day-of-year / 31).ceiling;
+    $dd = $day-of-year - ($mm - 1) × 31;
+  }
+  else {
+    $mm = 6 + (($day-of-year - 186) / 30).ceiling;
+    $dd = $day-of-year - 186 - ($mm - 7) × 30;
+  }
+  $.new(year => $yyyy, month => $mm, day => $dd);
+}
+
 
 method to-date($class = 'Date') {
   # See "Learning Perl 6" page 177
   my $d = ::($class).new-from-daycount($.daycount);
   return $d;
 }
-
-# Epoch for the Persian calendar: 0622-03-19 in the Julian calendar,
-#                                 0622-03-22 in the proleptic Gregorian calendar
-my Date $persian-epoch .= new(622, 3, 22);
 
 sub persian-daycount(Int $yyyy, Int $mm, Int $dd, $bias) {
   my Int $ep-base = $yyyy - 474;

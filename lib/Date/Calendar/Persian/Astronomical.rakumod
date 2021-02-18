@@ -16,6 +16,10 @@ method BUILD(Int:D :$year, Int:D :$month, Int:D :$day) {
   $._build-from-args($year, $month, $day, &astro-bias);
 }
 
+method new-from-daycount(Int $day-count) {
+  $.new-from-daycount-and-bias($day-count, &astro-bias);
+}
+
 method astro-bias {
   astro-bias($.year);
 }

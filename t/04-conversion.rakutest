@@ -89,21 +89,21 @@ my @test-data = (
        , < 1404 12 30	   2026  3 20 >
 );
 
-plan  1 × @test-data.elems;
+plan 2 × @test-data.elems;
 
-#for @test-data -> $datum {
-#  my ($y-pe, $m-pe, $d-pe, $y-gr, $m-gr, $d-gr) = $datum;
-#
-#  my Date::Calendar::Persian
-#          $date-pe;
-#  my Date $date-gr;
-#
-#  $date-gr .= new($y-gr, $m-gr, $d-gr);
-#  $date-pe .= new-from-date($date-gr);
-#
-#  my $expected = sprintf("%04d-%02d-%02d", $y-pe, $m-pe, $d-pe);
-#  is($date-pe.gist, $expected);
-#}
+for @test-data -> $datum {
+  my ($y-pe, $m-pe, $d-pe, $y-gr, $m-gr, $d-gr) = $datum;
+
+  my Date::Calendar::Persian
+          $date-pe;
+  my Date $date-gr;
+
+  $date-gr .= new($y-gr, $m-gr, $d-gr);
+  $date-pe .= new-from-date($date-gr);
+
+  my $expected = sprintf("%04d-%02d-%02d", $y-pe, $m-pe, $d-pe);
+  is($date-pe.gist, $expected);
+}
 
 for @test-data -> $datum {
   my ($y-pe, $m-pe, $d-pe, $y-gr, $m-gr, $d-gr) = $datum;
@@ -120,3 +120,4 @@ for @test-data -> $datum {
 }
 
 done-testing;
+
