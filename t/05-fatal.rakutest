@@ -1,0 +1,62 @@
+#
+# Checking the checks
+#
+use v6.c;
+use Test;
+use Date::Calendar::Persian;
+use Date::Calendar::Persian::Astronomical;
+
+
+my Date::Calendar::Persian               $dt1;
+my Date::Calendar::Persian::Astronomical $dt2;
+
+plan 38;
+
+# tests on a normal year (according to the arithmetic calendar)
+dies-ok(  { $dt1 .= new(year => 1243, month => 13, day =>  3); }, "Month out of range");
+lives-ok( { $dt1 .= new(year => 1243, month =>  4, day =>  3); }, "Month within range");
+dies-ok(  { $dt1 .= new(year => 1243, month =>  0, day =>  3); }, "Month out of range");
+dies-ok(  { $dt1 .= new(year => 1243, month => 10, day => 33); }, "Day out of range");
+dies-ok(  { $dt1 .= new(year => 1243, month => 10, day =>  0); }, "Day out of range");
+lives-ok( { $dt1 .= new(year => 1243, month =>  6, day => 31); }, "Day within range");
+lives-ok( { $dt1 .= new(year => 1243, month =>  4, day =>  1); }, "Day within range");
+dies-ok(  { $dt1 .= new(year => 1243, month =>  7, day => 31); }, "Day out of range for this month");
+dies-ok(  { $dt1 .= new(year => 1243, month => 12, day => 30); }, "Day out of range for this month");
+
+# tests on a leap year (according to the arithmetic calendar)
+dies-ok(  { $dt1 .= new(year => 1404, month => 13, day =>  3); }, "Month out of range");
+dies-ok(  { $dt1 .= new(year => 1404, month =>  0, day =>  3); }, "Month out of range");
+dies-ok(  { $dt1 .= new(year => 1404, month => 10, day => 33); }, "Day out of range");
+dies-ok(  { $dt1 .= new(year => 1404, month => 10, day =>  0); }, "Day out of range");
+lives-ok( { $dt1 .= new(year => 1404, month =>  5, day => 30); }, "Day within range");
+lives-ok( { $dt1 .= new(year => 1404, month =>  4, day =>  1); }, "Day within range");
+lives-ok( { $dt1 .= new(year => 1404, month => 12, day => 30); }, "Day within range");
+dies-ok(  { $dt1 .= new(year => 1404, month => 12, day => 31); }, "Day out of range for this month");
+
+
+# tests on a normal year (according to the astronomical calendar)
+dies-ok(  { $dt2 .= new(year => 1404, month => 13, day =>  3); }, "Month out of range");
+lives-ok( { $dt2 .= new(year => 1404, month =>  4, day =>  3); }, "Month within range");
+dies-ok(  { $dt2 .= new(year => 1404, month =>  0, day =>  3); }, "Month out of range");
+dies-ok(  { $dt2 .= new(year => 1404, month => 10, day => 33); }, "Day out of range");
+dies-ok(  { $dt2 .= new(year => 1404, month => 10, day =>  0); }, "Day out of range");
+lives-ok( { $dt2 .= new(year => 1404, month =>  6, day => 31); }, "Day within range");
+lives-ok( { $dt2 .= new(year => 1404, month =>  4, day =>  1); }, "Day within range");
+dies-ok(  { $dt2 .= new(year => 1404, month =>  7, day => 31); }, "Day out of range for this month");
+dies-ok(  { $dt2 .= new(year => 1404, month => 12, day => 30); }, "Day out of range for this month");
+
+# tests on a leap year (according to the astronomical calendar)
+dies-ok(  { $dt2 .= new(year => 1243, month => 13, day =>  3); }, "Month out of range");
+dies-ok(  { $dt2 .= new(year => 1243, month =>  0, day =>  3); }, "Month out of range");
+dies-ok(  { $dt2 .= new(year => 1243, month => 10, day => 33); }, "Day out of range");
+dies-ok(  { $dt2 .= new(year => 1243, month => 10, day =>  0); }, "Day out of range");
+lives-ok( { $dt2 .= new(year => 1243, month =>  5, day => 30); }, "Day within range");
+lives-ok( { $dt2 .= new(year => 1243, month =>  4, day =>  1); }, "Day within range");
+lives-ok( { $dt2 .= new(year => 1243, month => 12, day => 30); }, "Day within range");
+dies-ok(  { $dt2 .= new(year => 1243, month => 12, day => 31); }, "Day out of range for this month");
+
+# tests on the year
+dies-ok(  { $dt1 .= new(year =>    0, month =>  4, day =>  1); }, "Year out of range");
+dies-ok(  { $dt1 .= new(year =>   -1, month =>  4, day =>  1); }, "Year out of range");
+dies-ok(  { $dt2 .= new(year =>  999, month =>  4, day =>  1); }, "Year out of range");
+dies-ok(  { $dt2 .= new(year => 1801, month =>  4, day =>  1); }, "Year out of range");

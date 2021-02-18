@@ -15,6 +15,9 @@ has Int $.week-number;
 has Int $.week-year;
 
 method _chek-build-args(Int $year, Int $month, Int $day, &bias) {
+  if $year ≤ 0 {
+    X::OutOfRange.new(:what<Year>, :got($year), :range<1..inf>).throw;
+  }
   unless 1 ≤ $month ≤ 12 {
     X::OutOfRange.new(:what<Month>, :got($month), :range<1..12>).throw;
   }

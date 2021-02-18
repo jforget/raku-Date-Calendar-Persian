@@ -9,6 +9,9 @@ unit class Date::Calendar::Persian::Astronomical:ver<0.0.1>:auth<cpan:JFORGET>
       does Date::Calendar::Strftime;
 
 method BUILD(Int:D :$year, Int:D :$month, Int:D :$day) {
+  unless 1000 ≤ $year ≤ 1800 {
+    X::OutOfRange.new(:what<Year>, :got($year), :range<1000..1800>).throw;
+  }
   $._chek-build-args($year, $month, $day, &astro-bias);
   $._build-from-args($year, $month, $day, &astro-bias);
 }
@@ -81,7 +84,7 @@ The distribution provides also the Date::Calendar::Persian class which
 gives the arithmetic version of the Persian calendar.
 
 The astronomical  Persian calendar  is only partially  implemented. It
-can represent dates  only in the 1000  to 1800 years (1667  to 2089 in
+can represent dates  only in the 1000  to 1800 years (1621  to 2421 in
 the Gregorian calendar).
 
 
