@@ -94,7 +94,6 @@ method new-from-date($date) {
 #                                 0622-03-22 in the proleptic Gregorian calendar
 my Date $persian-epoch .= new(622, 3, 22);
 
-
 method new-from-daycount-and-bias(Int $day-count, $bias-fct) {
   my Int $pers-day-count = $day-count - $persian-epoch.daycount + 1;
   my Int $yyyy = ($pers-day-count / 365).ceiling;
@@ -115,7 +114,6 @@ method new-from-daycount-and-bias(Int $day-count, $bias-fct) {
   $.new(year => $yyyy, month => $mm, day => $dd);
 }
 
-
 method to-date($class = 'Date') {
   # See "Learning Perl 6" page 177
   my $d = ::($class).new-from-daycount($.daycount);
@@ -132,7 +130,7 @@ sub persian-daycount(Int $yyyy, Int $mm, Int $dd, $bias) {
                  + $bias($yyyy)
                  + 31 × (6 min ($mm - 1))   # 31-day months before current month
                  + 30 × (0 max ($mm - 7))   # 30-day months before current month
-                 + $dd - 1; 
+                 + $dd - 1;
 }
 
 sub month-days(Int $year, Int $month, &bias --> Int) {
