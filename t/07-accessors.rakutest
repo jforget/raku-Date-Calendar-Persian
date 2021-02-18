@@ -1,5 +1,5 @@
 #
-# Checking the attributes of dates built with year, month, day values
+# Checking the attributes of dates built from converting a Gregorian date
 #
 use Test;
 use Date::Calendar::Persian;
@@ -23,7 +23,8 @@ my @tests = (('zzz',       3, 'zzz')
 
 plan 8 + 2 × @tests.elems + 5 + 5;
 
-my Date::Calendar::Persian $d .= new(year => 1399, month => 11, day => 28);
+my Date $dg .= new("2021-02-16");
+my Date::Calendar::Persian $d .= new-from-date($dg);
 
 is($d.month,        11);
 is($d.day,          28);
@@ -49,7 +50,8 @@ for @tests -> $test {
 # 2025-03-21 (Gregorian) translates as 1404-01-01 with the astronomical calendar
 #                               and as 1404-01-02 with the arithmetic calendar
 # see Calendrical Calculations 3rd publishing page 225
-$d .= new(year => 1404, month => 1, day => 2);
+$dg .= new("2025-03-21");
+$d .= new-from-date($dg);
 is($d.daycount,    60755);
 is($d.day-of-year,     2);
 is($d.day-of-week,     7);
@@ -57,7 +59,7 @@ is($d.week-year,    1403);
 is($d.week-number,    52);
 
 my  Date::Calendar::Persian::Astronomical $d1;
-$d1 .= new(year => 1404, month => 1, day => 1);
+$d1 .= new-from-date($dg);
 is($d1.daycount,    60755);
 is($d1.day-of-year,     1);
 is($d1.day-of-week,     7);

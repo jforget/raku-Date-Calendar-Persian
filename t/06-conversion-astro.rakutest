@@ -1,5 +1,5 @@
 #
-# Checking the conversions
+# Checking the conversions when using the astronomical calendar
 #
 use v6.c;
 use Test;
