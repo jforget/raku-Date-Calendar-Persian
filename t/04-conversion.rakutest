@@ -5,10 +5,45 @@ use v6.c;
 use Test;
 use Date::Calendar::Persian;
 
+my @test-data = load-data();
+
+plan 2 × @test-data.elems;
+
+for @test-data -> $datum {
+  my ($y-pe, $m-pe, $d-pe, $y-gr, $m-gr, $d-gr) = $datum;
+
+  my Date::Calendar::Persian
+          $date-pe;
+  my Date $date-gr;
+
+  $date-gr .= new($y-gr, $m-gr, $d-gr);
+  $date-pe .= new-from-date($date-gr);
+
+  my $expected = sprintf("%04d-%02d-%02d", $y-pe, $m-pe, $d-pe);
+  is($date-pe.gist, $expected);
+}
+
+for @test-data -> $datum {
+  my ($y-pe, $m-pe, $d-pe, $y-gr, $m-gr, $d-gr) = $datum;
+
+  my Date::Calendar::Persian
+          $date-pe;
+  my Date $date-gr;
+
+  $date-pe .= new(year => +$y-pe, month => +$m-pe, day => +$d-pe);
+  $date-gr  = $date-pe.to-date;
+
+  my $expected = sprintf("%04d-%02d-%02d", $y-gr, $m-gr, $d-gr);
+  is($date-gr.gist, $expected);
+}
+
+done-testing;
+
 # Test data were computed by choosing Persian dates (not very randomly),
 # applying "/usr/share/emacs/25.1/lisp/calendar/cal-islam.el"
 # and then "/usr/share/emacs/25.1/lisp/calendar/calendar.el"
-my @test-data = (
+sub load-data {
+  return (
          <    1  1  1       622  3 22 >
        , <    1 12 29	    623  3 21 >
        , <    2  1  1	    623  3 22 >
@@ -88,36 +123,4 @@ my @test-data = (
        , < 1404  1  1	   2025  3 20 >
        , < 1404 12 30	   2026  3 20 >
 );
-
-plan 2 × @test-data.elems;
-
-for @test-data -> $datum {
-  my ($y-pe, $m-pe, $d-pe, $y-gr, $m-gr, $d-gr) = $datum;
-
-  my Date::Calendar::Persian
-          $date-pe;
-  my Date $date-gr;
-
-  $date-gr .= new($y-gr, $m-gr, $d-gr);
-  $date-pe .= new-from-date($date-gr);
-
-  my $expected = sprintf("%04d-%02d-%02d", $y-pe, $m-pe, $d-pe);
-  is($date-pe.gist, $expected);
 }
-
-for @test-data -> $datum {
-  my ($y-pe, $m-pe, $d-pe, $y-gr, $m-gr, $d-gr) = $datum;
-
-  my Date::Calendar::Persian
-          $date-pe;
-  my Date $date-gr;
-
-  $date-pe .= new(year => +$y-pe, month => +$m-pe, day => +$d-pe);
-  $date-gr  = $date-pe.to-date;
-
-  my $expected = sprintf("%04d-%02d-%02d", $y-gr, $m-gr, $d-gr);
-  is($date-gr.gist, $expected);
-}
-
-done-testing;
-
