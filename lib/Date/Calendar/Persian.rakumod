@@ -47,7 +47,7 @@ $dt-persian .= new-from-date($dt-greg);
 say $dt-persian;
 # --> 1399-11-28
 say $dt-persian.strftime("%A %d %B %Y");
-# --> Yek-shanbe 28 Bahman 1399
+# --> Se shanbe 28 Bahman 1399
 
 =end code
 
