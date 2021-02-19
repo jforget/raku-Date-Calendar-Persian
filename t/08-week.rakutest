@@ -1,0 +1,206 @@
+#
+# Checking the week-related attributes
+#
+use v6.c;
+use Test;
+use Date::Calendar::Persian;
+
+my @tests = test-data;
+plan 2 × @tests.elems;
+
+for @tests -> $test {
+  my ($y, $m, $d, $doy, $iso) = $test;
+  my Date::Calendar::Persian $d-prs .= new(year => $y, month => $m, day => $d);
+  is($d-prs.day-of-year          , $doy);
+  is($d-prs.strftime('%G-W%V-%u'), $iso);
+}
+
+done-testing;
+
+sub test-data {
+  return (    # 1441 begins on Do shanbe and 1440 is normal
+              (1440, 12, 25, 361, '1440-W00-5') #     Chahar shanbe 25 Esfand 1440
+            , (1440, 12, 26, 362, '1440-W00-6') #     Panj shanbe 26 Esfand 1440
+            , (1440, 12, 27, 363, '1440-W00-7') # ^^^ Jumee 27 Esfand 1440
+            , (1440, 12, 28, 364, '1440-W00-1') # vvv Shanbe 28 Esfand 1440
+            , (1440, 12, 29, 365, '1440-W00-2') #     Yek-shanbe 29 Esfand 1440
+            , (1441, 01, 01, 001, '1441-W00-3') #     Do shanbe 01 Farvardin 1441
+            , (1441, 01, 02, 002, '1441-W00-4') # ... Se shanbe 02 Farvardin 1441
+            , (1441, 01, 03, 003, '1441-W00-5') #     Chahar shanbe 03 Farvardin 1441
+            , (1441, 01, 04, 004, '1441-W00-6') #     Panj shanbe 04 Farvardin 1441
+            , (1441, 01, 05, 005, '1441-W00-7') # ^^^ Jumee 05 Farvardin 1441
+            , (1441, 01, 06, 006, '1441-W00-1') # vvv Shanbe 06 Farvardin 1441
+              # 1442 begins on Chahar shanbe and 1441 is leap
+            , (1441, 12, 25, 361, '1441-W00-6') #     Panj shanbe 25 Esfand 1441
+            , (1441, 12, 26, 362, '1441-W00-7') # ^^^ Jumee 26 Esfand 1441
+            , (1441, 12, 27, 363, '1441-W00-1') # vvv Shanbe 27 Esfand 1441
+            , (1441, 12, 28, 364, '1441-W00-2') #     Yek-shanbe 28 Esfand 1441
+            , (1441, 12, 29, 365, '1441-W00-3') #     Do shanbe 29 Esfand 1441
+            , (1441, 12, 30, 366, '1441-W00-4') # ... Se shanbe 30 Esfand 1441
+            , (1442, 01, 01, 001, '1442-W00-5') #     Chahar shanbe 01 Farvardin 1442
+            , (1442, 01, 02, 002, '1442-W00-6') #     Panj shanbe 02 Farvardin 1442
+            , (1442, 01, 03, 003, '1442-W00-7') # ^^^ Jumee 03 Farvardin 1442
+            , (1442, 01, 04, 004, '1442-W00-1') # vvv Shanbe 04 Farvardin 1442
+            , (1442, 01, 05, 005, '1442-W00-2') #     Yek-shanbe 05 Farvardin 1442
+            , (1442, 01, 06, 006, '1442-W00-3') #     Do shanbe 06 Farvardin 1442
+              # 1443 begins on Panj shanbe and 1442 is normal
+            , (1442, 12, 25, 361, '1442-W00-1') # vvv Shanbe 25 Esfand 1442
+            , (1442, 12, 26, 362, '1442-W00-2') #     Yek-shanbe 26 Esfand 1442
+            , (1442, 12, 27, 363, '1442-W00-3') #     Do shanbe 27 Esfand 1442
+            , (1442, 12, 28, 364, '1442-W00-4') # ... Se shanbe 28 Esfand 1442
+            , (1442, 12, 29, 365, '1442-W00-5') #     Chahar shanbe 29 Esfand 1442
+            , (1443, 01, 01, 001, '1443-W00-6') #     Panj shanbe 01 Farvardin 1443
+            , (1443, 01, 02, 002, '1443-W00-7') # ^^^ Jumee 02 Farvardin 1443
+            , (1443, 01, 03, 003, '1443-W00-1') # vvv Shanbe 03 Farvardin 1443
+            , (1443, 01, 04, 004, '1443-W00-2') #     Yek-shanbe 04 Farvardin 1443
+            , (1443, 01, 05, 005, '1443-W00-3') #     Do shanbe 05 Farvardin 1443
+            , (1443, 01, 06, 006, '1443-W00-4') # ... Se shanbe 06 Farvardin 1443
+              # 1444 begins on Jumee and 1443 is normal
+            , (1443, 12, 25, 361, '1443-W00-2') #     Yek-shanbe 25 Esfand 1443
+            , (1443, 12, 26, 362, '1443-W00-3') #     Do shanbe 26 Esfand 1443
+            , (1443, 12, 27, 363, '1443-W00-4') # ... Se shanbe 27 Esfand 1443
+            , (1443, 12, 28, 364, '1443-W00-5') #     Chahar shanbe 28 Esfand 1443
+            , (1443, 12, 29, 365, '1443-W00-6') #     Panj shanbe 29 Esfand 1443
+            , (1444, 01, 01, 001, '1444-W00-7') # ^^^ Jumee 01 Farvardin 1444
+            , (1444, 01, 02, 002, '1444-W00-1') # vvv Shanbe 02 Farvardin 1444
+            , (1444, 01, 03, 003, '1444-W00-2') #     Yek-shanbe 03 Farvardin 1444
+            , (1444, 01, 04, 004, '1444-W00-3') #     Do shanbe 04 Farvardin 1444
+            , (1444, 01, 05, 005, '1444-W00-4') # ... Se shanbe 05 Farvardin 1444
+            , (1444, 01, 06, 006, '1444-W00-5') #     Chahar shanbe 06 Farvardin 1444
+              # 1445 begins on Shanbe and 1444 is normal
+            , (1444, 12, 25, 361, '1444-W00-3') #     Do shanbe 25 Esfand 1444
+            , (1444, 12, 26, 362, '1444-W00-4') # ... Se shanbe 26 Esfand 1444
+            , (1444, 12, 27, 363, '1444-W00-5') #     Chahar shanbe 27 Esfand 1444
+            , (1444, 12, 28, 364, '1444-W00-6') #     Panj shanbe 28 Esfand 1444
+            , (1444, 12, 29, 365, '1444-W00-7') # ^^^ Jumee 29 Esfand 1444
+            , (1445, 01, 01, 001, '1445-W00-1') # vvv Shanbe 01 Farvardin 1445
+            , (1445, 01, 02, 002, '1445-W00-2') #     Yek-shanbe 02 Farvardin 1445
+            , (1445, 01, 03, 003, '1445-W00-3') #     Do shanbe 03 Farvardin 1445
+            , (1445, 01, 04, 004, '1445-W00-4') # ... Se shanbe 04 Farvardin 1445
+            , (1445, 01, 05, 005, '1445-W00-5') #     Chahar shanbe 05 Farvardin 1445
+            , (1445, 01, 06, 006, '1445-W00-6') #     Panj shanbe 06 Farvardin 1445
+              # 1446 begins on Do shanbe and 1445 is leap
+            , (1445, 12, 25, 361, '1445-W00-4') # ... Se shanbe 25 Esfand 1445
+            , (1445, 12, 26, 362, '1445-W00-5') #     Chahar shanbe 26 Esfand 1445
+            , (1445, 12, 27, 363, '1445-W00-6') #     Panj shanbe 27 Esfand 1445
+            , (1445, 12, 28, 364, '1445-W00-7') # ^^^ Jumee 28 Esfand 1445
+            , (1445, 12, 29, 365, '1445-W00-1') # vvv Shanbe 29 Esfand 1445
+            , (1445, 12, 30, 366, '1445-W00-2') #     Yek-shanbe 30 Esfand 1445
+            , (1446, 01, 01, 001, '1446-W00-3') #     Do shanbe 01 Farvardin 1446
+            , (1446, 01, 02, 002, '1446-W00-4') # ... Se shanbe 02 Farvardin 1446
+            , (1446, 01, 03, 003, '1446-W00-5') #     Chahar shanbe 03 Farvardin 1446
+            , (1446, 01, 04, 004, '1446-W00-6') #     Panj shanbe 04 Farvardin 1446
+            , (1446, 01, 05, 005, '1446-W00-7') # ^^^ Jumee 05 Farvardin 1446
+            , (1446, 01, 06, 006, '1446-W00-1') # vvv Shanbe 06 Farvardin 1446
+              # 1447 begins on Se shanbe and 1446 is normal
+            , (1446, 12, 25, 361, '1446-W00-6') #     Panj shanbe 25 Esfand 1446
+            , (1446, 12, 26, 362, '1446-W00-7') # ^^^ Jumee 26 Esfand 1446
+            , (1446, 12, 27, 363, '1446-W00-1') # vvv Shanbe 27 Esfand 1446
+            , (1446, 12, 28, 364, '1446-W00-2') #     Yek-shanbe 28 Esfand 1446
+            , (1446, 12, 29, 365, '1446-W00-3') #     Do shanbe 29 Esfand 1446
+            , (1447, 01, 01, 001, '1447-W00-4') # ... Se shanbe 01 Farvardin 1447
+            , (1447, 01, 02, 002, '1447-W00-5') #     Chahar shanbe 02 Farvardin 1447
+            , (1447, 01, 03, 003, '1447-W00-6') #     Panj shanbe 03 Farvardin 1447
+            , (1447, 01, 04, 004, '1447-W00-7') # ^^^ Jumee 04 Farvardin 1447
+            , (1447, 01, 05, 005, '1447-W00-1') # vvv Shanbe 05 Farvardin 1447
+            , (1447, 01, 06, 006, '1447-W00-2') #     Yek-shanbe 06 Farvardin 1447
+              # 1448 begins on Chahar shanbe and 1447 is normal
+            , (1447, 12, 25, 361, '1447-W00-7') # ^^^ Jumee 25 Esfand 1447
+            , (1447, 12, 26, 362, '1447-W00-1') # vvv Shanbe 26 Esfand 1447
+            , (1447, 12, 27, 363, '1447-W00-2') #     Yek-shanbe 27 Esfand 1447
+            , (1447, 12, 28, 364, '1447-W00-3') #     Do shanbe 28 Esfand 1447
+            , (1447, 12, 29, 365, '1447-W00-4') # ... Se shanbe 29 Esfand 1447
+            , (1448, 01, 01, 001, '1448-W00-5') #     Chahar shanbe 01 Farvardin 1448
+            , (1448, 01, 02, 002, '1448-W00-6') #     Panj shanbe 02 Farvardin 1448
+            , (1448, 01, 03, 003, '1448-W00-7') # ^^^ Jumee 03 Farvardin 1448
+            , (1448, 01, 04, 004, '1448-W00-1') # vvv Shanbe 04 Farvardin 1448
+            , (1448, 01, 05, 005, '1448-W00-2') #     Yek-shanbe 05 Farvardin 1448
+            , (1448, 01, 06, 006, '1448-W00-3') #     Do shanbe 06 Farvardin 1448
+              # 1449 begins on Panj shanbe and 1448 is normal
+            , (1448, 12, 25, 361, '1448-W00-1') # vvv Shanbe 25 Esfand 1448
+            , (1448, 12, 26, 362, '1448-W00-2') #     Yek-shanbe 26 Esfand 1448
+            , (1448, 12, 27, 363, '1448-W00-3') #     Do shanbe 27 Esfand 1448
+            , (1448, 12, 28, 364, '1448-W00-4') # ... Se shanbe 28 Esfand 1448
+            , (1448, 12, 29, 365, '1448-W00-5') #     Chahar shanbe 29 Esfand 1448
+            , (1449, 01, 01, 001, '1449-W00-6') #     Panj shanbe 01 Farvardin 1449
+            , (1449, 01, 02, 002, '1449-W00-7') # ^^^ Jumee 02 Farvardin 1449
+            , (1449, 01, 03, 003, '1449-W00-1') # vvv Shanbe 03 Farvardin 1449
+            , (1449, 01, 04, 004, '1449-W00-2') #     Yek-shanbe 04 Farvardin 1449
+            , (1449, 01, 05, 005, '1449-W00-3') #     Do shanbe 05 Farvardin 1449
+            , (1449, 01, 06, 006, '1449-W00-4') # ... Se shanbe 06 Farvardin 1449
+              # 1450 begins on Shanbe and 1449 is leap
+            , (1449, 12, 25, 361, '1449-W00-2') #     Yek-shanbe 25 Esfand 1449
+            , (1449, 12, 26, 362, '1449-W00-3') #     Do shanbe 26 Esfand 1449
+            , (1449, 12, 27, 363, '1449-W00-4') # ... Se shanbe 27 Esfand 1449
+            , (1449, 12, 28, 364, '1449-W00-5') #     Chahar shanbe 28 Esfand 1449
+            , (1449, 12, 29, 365, '1449-W00-6') #     Panj shanbe 29 Esfand 1449
+            , (1449, 12, 30, 366, '1449-W00-7') # ^^^ Jumee 30 Esfand 1449
+            , (1450, 01, 01, 001, '1450-W00-1') # vvv Shanbe 01 Farvardin 1450
+            , (1450, 01, 02, 002, '1450-W00-2') #     Yek-shanbe 02 Farvardin 1450
+            , (1450, 01, 03, 003, '1450-W00-3') #     Do shanbe 03 Farvardin 1450
+            , (1450, 01, 04, 004, '1450-W00-4') # ... Se shanbe 04 Farvardin 1450
+            , (1450, 01, 05, 005, '1450-W00-5') #     Chahar shanbe 05 Farvardin 1450
+            , (1450, 01, 06, 006, '1450-W00-6') #     Panj shanbe 06 Farvardin 1450
+              # 1451 begins on Yek-shanbe and 1450 is normal
+            , (1450, 12, 25, 361, '1450-W00-4') # ... Se shanbe 25 Esfand 1450
+            , (1450, 12, 26, 362, '1450-W00-5') #     Chahar shanbe 26 Esfand 1450
+            , (1450, 12, 27, 363, '1450-W00-6') #     Panj shanbe 27 Esfand 1450
+            , (1450, 12, 28, 364, '1450-W00-7') # ^^^ Jumee 28 Esfand 1450
+            , (1450, 12, 29, 365, '1450-W00-1') # vvv Shanbe 29 Esfand 1450
+            , (1451, 01, 01, 001, '1451-W00-2') #     Yek-shanbe 01 Farvardin 1451
+            , (1451, 01, 02, 002, '1451-W00-3') #     Do shanbe 02 Farvardin 1451
+            , (1451, 01, 03, 003, '1451-W00-4') # ... Se shanbe 03 Farvardin 1451
+            , (1451, 01, 04, 004, '1451-W00-5') #     Chahar shanbe 04 Farvardin 1451
+            , (1451, 01, 05, 005, '1451-W00-6') #     Panj shanbe 05 Farvardin 1451
+            , (1451, 01, 06, 006, '1451-W00-7') # ^^^ Jumee 06 Farvardin 1451
+              # 1452 begins on Do shanbe and 1451 is normal
+            , (1451, 12, 25, 361, '1451-W00-5') #     Chahar shanbe 25 Esfand 1451
+            , (1451, 12, 26, 362, '1451-W00-6') #     Panj shanbe 26 Esfand 1451
+            , (1451, 12, 27, 363, '1451-W00-7') # ^^^ Jumee 27 Esfand 1451
+            , (1451, 12, 28, 364, '1451-W00-1') # vvv Shanbe 28 Esfand 1451
+            , (1451, 12, 29, 365, '1451-W00-2') #     Yek-shanbe 29 Esfand 1451
+            , (1452, 01, 01, 001, '1452-W00-3') #     Do shanbe 01 Farvardin 1452
+            , (1452, 01, 02, 002, '1452-W00-4') # ... Se shanbe 02 Farvardin 1452
+            , (1452, 01, 03, 003, '1452-W00-5') #     Chahar shanbe 03 Farvardin 1452
+            , (1452, 01, 04, 004, '1452-W00-6') #     Panj shanbe 04 Farvardin 1452
+            , (1452, 01, 05, 005, '1452-W00-7') # ^^^ Jumee 05 Farvardin 1452
+            , (1452, 01, 06, 006, '1452-W00-1') # vvv Shanbe 06 Farvardin 1452
+              # 1453 begins on Se shanbe and 1452 is normal
+            , (1452, 12, 25, 361, '1452-W00-6') #     Panj shanbe 25 Esfand 1452
+            , (1452, 12, 26, 362, '1452-W00-7') # ^^^ Jumee 26 Esfand 1452
+            , (1452, 12, 27, 363, '1452-W00-1') # vvv Shanbe 27 Esfand 1452
+            , (1452, 12, 28, 364, '1452-W00-2') #     Yek-shanbe 28 Esfand 1452
+            , (1452, 12, 29, 365, '1452-W00-3') #     Do shanbe 29 Esfand 1452
+            , (1453, 01, 01, 001, '1453-W00-4') # ... Se shanbe 01 Farvardin 1453
+            , (1453, 01, 02, 002, '1453-W00-5') #     Chahar shanbe 02 Farvardin 1453
+            , (1453, 01, 03, 003, '1453-W00-6') #     Panj shanbe 03 Farvardin 1453
+            , (1453, 01, 04, 004, '1453-W00-7') # ^^^ Jumee 04 Farvardin 1453
+            , (1453, 01, 05, 005, '1453-W00-1') # vvv Shanbe 05 Farvardin 1453
+            , (1453, 01, 06, 006, '1453-W00-2') #     Yek-shanbe 06 Farvardin 1453
+              # 1454 begins on Panj shanbe and 1453 is leap
+            , (1453, 12, 25, 361, '1453-W00-7') # ^^^ Jumee 25 Esfand 1453
+            , (1453, 12, 26, 362, '1453-W00-1') # vvv Shanbe 26 Esfand 1453
+            , (1453, 12, 27, 363, '1453-W00-2') #     Yek-shanbe 27 Esfand 1453
+            , (1453, 12, 28, 364, '1453-W00-3') #     Do shanbe 28 Esfand 1453
+            , (1453, 12, 29, 365, '1453-W00-4') # ... Se shanbe 29 Esfand 1453
+            , (1453, 12, 30, 366, '1453-W00-5') #     Chahar shanbe 30 Esfand 1453
+            , (1454, 01, 01, 001, '1454-W00-6') #     Panj shanbe 01 Farvardin 1454
+            , (1454, 01, 02, 002, '1454-W00-7') # ^^^ Jumee 02 Farvardin 1454
+            , (1454, 01, 03, 003, '1454-W00-1') # vvv Shanbe 03 Farvardin 1454
+            , (1454, 01, 04, 004, '1454-W00-2') #     Yek-shanbe 04 Farvardin 1454
+            , (1454, 01, 05, 005, '1454-W00-3') #     Do shanbe 05 Farvardin 1454
+            , (1454, 01, 06, 006, '1454-W00-4') # ... Se shanbe 06 Farvardin 1454
+              # 1455 begins on Jumee and 1454 is normal
+            , (1454, 12, 25, 361, '1454-W00-2') #     Yek-shanbe 25 Esfand 1454
+            , (1454, 12, 26, 362, '1454-W00-3') #     Do shanbe 26 Esfand 1454
+            , (1454, 12, 27, 363, '1454-W00-4') # ... Se shanbe 27 Esfand 1454
+            , (1454, 12, 28, 364, '1454-W00-5') #     Chahar shanbe 28 Esfand 1454
+            , (1454, 12, 29, 365, '1454-W00-6') #     Panj shanbe 29 Esfand 1454
+            , (1455, 01, 01, 001, '1455-W00-7') # ^^^ Jumee 01 Farvardin 1455
+            , (1455, 01, 02, 002, '1455-W00-1') # vvv Shanbe 02 Farvardin 1455
+            , (1455, 01, 03, 003, '1455-W00-2') #     Yek-shanbe 03 Farvardin 1455
+            , (1455, 01, 04, 004, '1455-W00-3') #     Do shanbe 04 Farvardin 1455
+            , (1455, 01, 05, 005, '1455-W00-4') # ... Se shanbe 05 Farvardin 1455
+            , (1455, 01, 06, 006, '1455-W00-5') #     Chahar shanbe 06 Farvardin 1455
+            );
+}
