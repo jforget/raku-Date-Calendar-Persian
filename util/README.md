@@ -29,8 +29,9 @@ instead of leaving them  at the end of the test data.  But this is not
 required.
 
 Insert the test data in  `t/04-conversion.rakutest` and add manually a
-line for  the Persian  epoch, 1  Farvardin 1  or 22  March 622  in the
-proleptic Gregorian calendar (19 March in the Julian calendar).
+line  for the  Persian  epoch, 1  Farvardin  1 (22  March  622 in  the
+proleptic  Gregorian  calendar,  that  is   19  March  in  the  Julian
+calendar).
 
 build-08-week.p6
 ================
@@ -40,7 +41,7 @@ in   Persian  dates   objects.   It  uses   a  partially   implemented
 `Date::Calendar::Persian` module.
 
 First Step
-..........
+----------
 
 Comment out  then `list(...  True)` line  and uncomment  the `list(...
 False)` line.
@@ -55,7 +56,7 @@ calendar functions in Emacs.
 
 * Yek shanbe → Sunday
 
-* Do shanbe → Mionday
+* Do shanbe → Monday
 
 * Se shanbe → Tuesday
 
@@ -80,7 +81,7 @@ for  the beginning  of the  year, the  second one  for the  year type:
 normal / leap.
 
 Second Step
-...........
+-----------
 
 Comment out  the `list(...  False)` line  and uncomment  the `list(...
 True)` line.  Update the  span of  years in this  line to  include the
@@ -88,7 +89,8 @@ sample chosen in the first step.
 
 Run the script, redirecting stdout to a text file.
 
-Edit this file. On each line, update the `nnnn-Wnn-n` value:
+Edit  this file.  On each  line, update  the `nnnn-Wnn-n`  value. From
+right to left:
 
 * Check that the day-of-week is the proper one.
 
