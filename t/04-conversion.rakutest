@@ -40,7 +40,7 @@ for @test-data -> $datum {
 done-testing;
 
 # Test data were computed by choosing Persian dates (not very randomly),
-# applying "/usr/share/emacs/25.1/lisp/calendar/cal-islam.el"
+# applying "/usr/share/emacs/25.1/lisp/calendar/cal-persia.el"
 # and then "/usr/share/emacs/25.1/lisp/calendar/calendar.el"
 sub load-data {
   return (
