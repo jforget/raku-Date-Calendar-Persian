@@ -19,7 +19,7 @@ for @test-data -> $datum {
   $date-gr .= new($y-gr, $m-gr, $d-gr);
   $date-pe .= new-from-date($date-gr);
 
-  my $expected = sprintf("%04d-%02d-%02d", $y-pe, $m-pe, $d-pe);
+  my Str $expected = sprintf("%04d-%02d-%02d", $y-pe, $m-pe, $d-pe);
   is($date-pe.gist, $expected);
 }
 
@@ -33,7 +33,7 @@ for @test-data -> $datum {
   $date-pe .= new(year => +$y-pe, month => +$m-pe, day => +$d-pe);
   $date-gr  = $date-pe.to-date;
 
-  my $expected = sprintf("%04d-%02d-%02d", $y-gr, $m-gr, $d-gr);
+  my Str $expected = sprintf("%04d-%02d-%02d", $y-gr, $m-gr, $d-gr);
   is($date-gr.gist, $expected);
 }
 

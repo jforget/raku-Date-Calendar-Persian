@@ -32,7 +32,7 @@
 (defun compar (absol)
   (let ((pers (calendar-persian-from-absolute   absol))
         (greg (calendar-gregorian-from-absolute absol)))
-    (princ (format "       , < %4d %2d %2d      %4d %2d %2d >\n" 
+    (princ (format "       , < %4d %2d %2d      %4d %2d %2d >\n"
                                (nth 2 pers) (nth 0 pers) (nth 1 pers)
                                (nth 2 greg) (nth 0 greg) (nth 1 greg)
     ))

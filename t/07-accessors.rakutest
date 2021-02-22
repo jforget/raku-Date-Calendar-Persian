@@ -37,7 +37,7 @@ is($d.week-number,  48);
 
 for @tests -> $test {
   my ($format, $length, $expected) = $test;
-  my $result = $d.strftime($format);
+  my Str $result = $d.strftime($format);
 
   # Remembering RT ticket 100311 for the Perl 5 module DateTime::Calendar::FrenchRevolutionary
   # see https://github.com/jforget/DateTime-Calendar-FrenchRevolutionary/issues/6
