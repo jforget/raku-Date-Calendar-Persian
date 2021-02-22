@@ -4,7 +4,7 @@ use Date::Calendar::Strftime;
 use Date::Calendar::Persian::Names;
 use Date::Calendar::Persian::Common;
 
-unit class Date::Calendar::Persian:ver<0.0.1>:auth<cpan:JFORGET>
+unit class Date::Calendar::Persian:ver<0.0.2>:auth<cpan:JFORGET>
       does Date::Calendar::Persian::Common
       does Date::Calendar::Strftime;
 

@@ -3,7 +3,7 @@
 use Date::Calendar::Persian::Names;
 use Date::Calendar::Strftime;
 
-unit role Date::Calendar::Persian::Common:ver<0.0.1>:auth<cpan:JFORGET>;
+unit role Date::Calendar::Persian::Common:ver<0.0.2>:auth<cpan:JFORGET>;
 
 has Int $.year;
 has Int $.month where { 1 ≤ $_ ≤ 12 };
