@@ -33,8 +33,8 @@ line  for the  Persian  epoch, 1  Farvardin  1 (22  March  622 in  the
 proleptic  Gregorian  calendar,  that  is   19  March  in  the  Julian
 calendar).
 
-build-08-week.p6
-================
+build-08-week.raku
+==================
 
 This script helps  building data to check  the week-related attributes
 in   Persian  dates   objects.   It  uses   a  partially   implemented
