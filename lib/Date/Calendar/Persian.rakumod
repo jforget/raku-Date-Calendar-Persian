@@ -4,7 +4,7 @@ use Date::Calendar::Strftime;
 use Date::Calendar::Persian::Names;
 use Date::Calendar::Persian::Common;
 
-unit class Date::Calendar::Persian:ver<0.0.2>:auth<cpan:JFORGET>
+unit class Date::Calendar::Persian:ver<0.0.2>:auth<zef:jforget>:api<0>
       does Date::Calendar::Persian::Common
       does Date::Calendar::Strftime;
 
@@ -343,6 +343,9 @@ or L<https://github.com/jforget/raku-Date-Calendar-MayaAztec>
 L<Date::Calendar::FrenchRevolutionary>
 or L<https://github.com/jforget/raku-Date-Calendar-FrenchRevolutionary>
 
+L<Date::Calendar::Bahai>
+or L<https://github.com/jforget/raku-Date-Calendar-Bahai>
+
 =head2 Perl 5 Software
 
 L<Date::Persian::Simple>
@@ -377,11 +380,11 @@ L<https://en.wikipedia.org/wiki/Iranian_calendars>
 
 =head1 AUTHOR
 
-Jean Forget <JFORGET@cpan.org>
+Jean Forget <J2N-FORGET at orange dot fr>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2021 Jean Forget, all rights reserved.
+Copyright (c) 2021, 2024 Jean Forget, all rights reserved.
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 

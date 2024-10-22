@@ -3,7 +3,7 @@
 use Date::Calendar::Persian::Names;
 use Date::Calendar::Strftime;
 
-unit role Date::Calendar::Persian::Common:ver<0.0.2>:auth<cpan:JFORGET>;
+unit role Date::Calendar::Persian::Common:ver<0.0.2>:auth<zef:jforget>:api<0>;
 
 has Int $.year;
 has Int $.month where { 1 ≤ $_ ≤ 12 };
@@ -163,11 +163,11 @@ theses classes' documentation.
 
 =head1 AUTHOR
 
-Jean Forget <JFORGET@cpan.org>
+Jean Forget <J2N-FORGET at orange dot fr>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2020, 2021 Jean Forget
+Copyright (c) 2020, 2021, 2024 Jean Forget
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 

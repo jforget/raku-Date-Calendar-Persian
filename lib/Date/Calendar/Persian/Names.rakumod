@@ -1,5 +1,5 @@
 use v6.c;
-unit class Date::Calendar::Persian::Names:ver<0.0.2>:auth<cpan:JFORGET>;
+unit class Date::Calendar::Persian::Names:ver<0.0.2>:auth<zef:jforget>:api<0>;
 
 my @month-names = ( "Farvardin"
                   , "Ordibehesht"
@@ -113,11 +113,11 @@ L<https://en.wikipedia.org/wiki/Iranian_calendars>
 
 =head1 AUTHOR
 
-Jean Forget <JFORGET at cpan dot org>
+Jean Forget <J2N-FORGET at orange dot fr>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2021 Jean Forget, all rights reserved
+Copyright (c) 2021, 2024 Jean Forget, all rights reserved
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 
