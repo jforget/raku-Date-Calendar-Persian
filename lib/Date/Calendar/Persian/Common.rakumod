@@ -1,7 +1,7 @@
 # -*- encoding: utf-8; indent-tabs-mode: nil -*-
 
 use Date::Calendar::Persian::Names;
-use Date::Calendar::Strftime;
+use Date::Calendar::Strftime:api<1>;
 
 unit role Date::Calendar::Persian::Common:ver<0.1.0>:auth<zef:jforget>:api<1>;
 
@@ -9,6 +9,7 @@ has Int $.year;
 has Int $.month where { 1 ≤ $_ ≤ 12 };
 has Int $.day   where { 1 ≤ $_ ≤ 31 };
 has Int $.daycount;
+has Int $.daypart where { before-sunrise() ≤ $_ ≤ after-sunset() };
 has Int $.day-of-year;
 has Int $.day-of-week;
 has Int $.week-number;
@@ -27,13 +28,13 @@ method _chek-build-args(Int $year, Int $month, Int $day, &bias) {
   }
 }
 
+method _build-from-args(Int $year, Int $month, Int $day, &bias, Int $daypart) {
+  $!year    = $year;
+  $!month   = $month;
+  $!day     = $day;
+  $!daypart = $daypart;
 
-method _build-from-args(Int $year, Int $month, Int $day, &bias) {
-  $!year   = $year;
-  $!month  = $month;
-  $!day    = $day;
-
-  # computing derived attributes TODO
+  # computing derived attributes
   my Int $daycount   = persian-daycount($year, $month, $day, &bias);
   my Int $dow        = ($daycount + 4) % 7 + 1;
   my Int $doy        = $daycount - persian-daycount($year, 1, 0, &bias);
@@ -87,14 +88,14 @@ method day-abbr {
 }
 
 method new-from-date($date) {
-  $.new-from-daycount($date.daycount);
+  $.new-from-daycount($date.daycount, daypart => $date.?daypart // daylight);
 }
 
 # Epoch for the Persian calendar: 0622-03-19 in the Julian calendar,
 #                                 0622-03-22 in the proleptic Gregorian calendar
 my Date $persian-epoch .= new(622, 3, 22);
 
-method new-from-daycount-and-bias(Int $day-count, $bias-fct) {
+method new-from-daycount-and-bias(Int $day-count, $bias-fct, Int $daypart) {
   my Int $pers-day-count = $day-count - $persian-epoch.daycount + 1;
   my Int $yyyy = ($pers-day-count / 365).ceiling;
   while persian-daycount($yyyy, 1, 1, $bias-fct) > $day-count {
@@ -111,12 +112,12 @@ method new-from-daycount-and-bias(Int $day-count, $bias-fct) {
     $mm = 6 + (($day-of-year - 186) / 30).ceiling;
     $dd = $day-of-year - 186 - ($mm - 7) × 30;
   }
-  $.new(year => $yyyy, month => $mm, day => $dd);
+  $.new(year => $yyyy, month => $mm, day => $dd, daypart => $daypart);
 }
 
 method to-date($class = 'Date') {
   # See "Learning Perl 6" page 177
-  my $d = ::($class).new-from-daycount($.daycount);
+  my $d = ::($class).new-from-daycount($.daycount, daypart => $.daypart);
   return $d;
 }
 

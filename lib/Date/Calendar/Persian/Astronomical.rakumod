@@ -8,16 +8,16 @@ unit class Date::Calendar::Persian::Astronomical:ver<0.1.0>:auth<zef:jforget>:ap
       does Date::Calendar::Persian::Common
       does Date::Calendar::Strftime;
 
-method BUILD(Int:D :$year, Int:D :$month, Int:D :$day) {
+method BUILD(Int:D :$year, Int:D :$month, Int:D :$day, Int :$daypart = daylight()) {
   unless 1000 ≤ $year ≤ 1800 {
     X::OutOfRange.new(:what<Year>, :got($year), :range<1000..1800>).throw;
   }
   $._chek-build-args($year, $month, $day, &astro-bias);
-  $._build-from-args($year, $month, $day, &astro-bias);
+  $._build-from-args($year, $month, $day, &astro-bias, $daypart);
 }
 
-method new-from-daycount(Int $day-count) {
-  $.new-from-daycount-and-bias($day-count, &astro-bias);
+method new-from-daycount(Int $day-count, Int :$daypart = daylight) {
+  $.new-from-daycount-and-bias($day-count, &astro-bias, $daypart);
 }
 
 method astro-bias {
