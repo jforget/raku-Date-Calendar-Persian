@@ -85,13 +85,13 @@ L<https://html.duckduckgo.com/html/?q=calendarsystemjalali%20KDElibs>
 
 =head2 Perl 5 Software
 
-L<Date::Persian::Simple>
+L<Date::Persian::Simple|https://metacpan.org/pod/Date::Persian::Simple>
 
 =head2 Other Software
 
 date(1), strftime(3)
 
-F<calendar/cal-persia.el>  in emacs  or xemacs.
+C<calendar/cal-persia.el>  in emacs  or xemacs.
 
 CALENDRICA 4.0 -- Common Lisp, which can be download in the "Resources" section of
 L<https://www.cambridge.org/us/academic/subjects/computer-science/computing-general-interest/calendrical-calculations-ultimate-edition-4th-edition?format=PB&isbn=9781107683167>
@@ -107,7 +107,7 @@ or L<https://www.cambridge.org/us/academic/subjects/computer-science/computing-g
 
 L<Claus Tøndering's FAQ|https://www.tondering.dk/claus/cal/persian.php>.
 
-L<https://www.funaba.org/cc>
+L<https://www.funaba.org/cc> (which seems no longer active)
 
 L<https://en.wikipedia.org/wiki/Iranian_calendars>
 

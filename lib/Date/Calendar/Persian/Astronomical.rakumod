@@ -65,6 +65,7 @@ say $dt-persian.strftime("%A %d %B %Y");
 Converting a Persian date (e.g. 1 Farvardin 1400) into Gregorian
 
 =begin code :lang<raku>
+
 use Date::Calendar::Persian::Astronomical;
 my  Date::Calendar::Persian::Astronomical $dt-persian;
 my  Date $dt-greg;
@@ -74,6 +75,34 @@ $dt-greg   = $dt-persian.to-date;
 
 say $dt-greg;
 # --> 2021-03-21
+
+=end code
+
+Conversion with a calendar which defines days as sunset to sunset
+
+=begin code :lang<raku>
+
+use Date::Calendar::Strftime;
+use Date::Calendar::Hebrew;
+use Date::Calendar::Persian;
+my  Date::Calendar::Persian::Astronomical $d-pe;
+my  Date::Calendar::Hebrew                $d-he;
+
+$d-pe .= new(year => 1403, month => 8, day => 23, daypart => before-sunrise);
+$d-he .= new-from-date($d-pe);
+say $d-he.strftime("%A %d %B %Y");
+# ---> "Yom Reviʻi 12 Heshvan 5785"
+
+$d-pe .= new(year => 1403, month => 8, day => 23, daypart => daylight);
+$d-he .= new-from-date($d-pe);
+say $d-he.strftime("%A %d %B %Y");
+# ---> "Yom Reviʻi 12 Heshvan 5785" again
+
+$d-pe .= new(year => 1403, month => 8, day => 23, daypart => after-sunset);
+$d-he .= new-from-date($d-pe);
+say $d-he.strftime("%A %d %B %Y");
+# ---> "Yom Chamishi 13 Heshvan 5785" instead of "Yom Reviʻi 12 Heshvan 5785"
+
 =end code
 
 =head1 DESCRIPTION
@@ -91,47 +120,50 @@ The astronomical  Persian calendar  is only partially  implemented. It
 can represent dates  only in the 1000  to 1800 years (1621  to 2421 in
 the Gregorian calendar).
 
+Everything else is similar to the main class,
+C<Date:::Calendar::Persian>, so you should read the documentation for
+this class.
 
 =head1 SEE ALSO
 
 =head2 Raku Software
 
-L<Date::Calendar::Strftime>
+L<Date::Calendar::Strftime|https://raku.land/zef:jforget/Date::Calendar::Strftime>
 or L<https://github.com/jforget/raku-Date-Calendar-Strftime>
 
-L<Date::Calendar::Gregorian>
+L<Date::Calendar::Gregorian|https://raku.land/zef:jforget/Date::Calendar::Gregorian>
 or L<https://github.com/jforget/raku-Date-Calendar-Gregorian>
 
-L<Date::Calendar::Julian>
+L<Date::Calendar::Julian|https://raku.land/zef:jforget/Date::Calendar::Julian>
 or L<https://github.com/jforget/raku-Date-Calendar-Julian>
 
-L<Date::Calendar::Hebrew>
+L<Date::Calendar::Hebrew|https://raku.land/zef:jforget/Date::Calendar::Hebrew>
 or L<https://github.com/jforget/raku-Date-Calendar-Hebrew>
 
-L<Date::Calendar::Hijri>
+L<Date::Calendar::Hijri|https://raku.land/zef:jforget/Date::Calendar::Hijri>
 or L<https://github.com/jforget/raku-Date-Calendar-Hijri>
 
-L<Date::Calendar::CopticEthiopic>
+L<Date::Calendar::CopticEthiopic|https://raku.land/zef:jforget/Date::Calendar::CopticEthiopic>
 or L<https://github.com/jforget/raku-Date-Calendar-CopticEthiopic>
 
-L<Date::Calendar::MayaAztec>
+L<Date::Calendar::MayaAztec|https://raku.land/zef:jforget/Date::Calendar::MayaAztec>
 or L<https://github.com/jforget/raku-Date-Calendar-MayaAztec>
 
-L<Date::Calendar::FrenchRevolutionary>
+L<Date::Calendar::FrenchRevolutionary|https://raku.land/zef:jforget/Date::Calendar::FrenchRevolutionary>
 or L<https://github.com/jforget/raku-Date-Calendar-FrenchRevolutionary>
 
-L<Date::Calendar::Bahai>
+L<Date::Calendar::Bahai|https://raku.land/zef:jforget/Date::Calendar::Bahai>
 or L<https://github.com/jforget/raku-Date-Calendar-Bahai>
 
 =head2 Perl 5 Software
 
-L<Date::Persian::Simple>
+L<Date::Persian::Simple|https://metacpan.org/pod/Date::Persian::Simple>
 
 =head2 Other Software
 
 date(1), strftime(3)
 
-F<calendar/cal-persia.el>  in emacs  or xemacs.
+C<calendar/cal-persia.el>  in emacs  or xemacs.
 
 CALENDRICA 4.0 -- Common Lisp, which can be download in the "Resources" section of
 L<https://www.cambridge.org/us/academic/subjects/computer-science/computing-general-interest/calendrical-calculations-ultimate-edition-4th-edition?format=PB&isbn=9781107683167>
@@ -151,7 +183,7 @@ or L<https://www.cambridge.org/us/academic/subjects/computer-science/computing-g
 
 L<Claus Tøndering's FAQ|https://www.tondering.dk/claus/cal/persian.php>.
 
-L<https://www.funaba.org/cc>
+L<https://www.funaba.org/cc> (which seems no longer active)
 
 L<https://en.wikipedia.org/wiki/Iranian_calendars>
 

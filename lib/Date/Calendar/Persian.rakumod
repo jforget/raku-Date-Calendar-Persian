@@ -65,6 +65,33 @@ say $dt-greg;
 # --> 2021-03-21
 =end code
 
+Conversion with a calendar which defines days as sunset to sunset
+
+=begin code :lang<raku>
+
+use Date::Calendar::Strftime;
+use Date::Calendar::Hebrew;
+use Date::Calendar::Persian;
+my  Date::Calendar::Persian $d-pe;
+my  Date::Calendar::Hebrew  $d-he;
+
+$d-pe .= new(year => 1403, month => 8, day => 23, daypart => before-sunrise);
+$d-he .= new-from-date($d-pe);
+say $d-he.strftime("%A %d %B %Y");
+# ---> "Yom Reviʻi 12 Heshvan 5785"
+
+$d-pe .= new(year => 1403, month => 8, day => 23, daypart => daylight);
+$d-he .= new-from-date($d-pe);
+say $d-he.strftime("%A %d %B %Y");
+# ---> "Yom Reviʻi 12 Heshvan 5785" again
+
+$d-pe .= new(year => 1403, month => 8, day => 23, daypart => after-sunset);
+$d-he .= new-from-date($d-pe);
+say $d-he.strftime("%A %d %B %Y");
+# ---> "Yom Chamishi 13 Heshvan 5785" instead of "Yom Reviʻi 12 Heshvan 5785"
+
+=end code
+
 =head1 DESCRIPTION
 
 Date::Calendar::Persian is  a class representing dates  in the Persian
@@ -83,17 +110,20 @@ distribution.
 
 =head3 new
 
-Create an Persian date by giving the year, month and day numbers.
+Create an Persian  date by giving the year, month  and day numbers and
+optionally the day part.
 
 =head3 new-from-date
 
 Build an  Persian date by cloning  an object from another  class. This
 other   class    can   be    the   core    class   C<Date>    or   any
-C<Date::Calendar::>R<xxx> class with a C<daycount> method.
+C<Date::Calendar::>R<xxx>   class  with   a  C<daycount>   method  and
+hopefully a C<daypart> method.
 
 =head3 new-from-daycount
 
-Build an Persian date from the Modified Julian Day number.
+Build an Persian date from the Modified Julian Day number and from the
+C<daypart> parameter (optional, defaults do C<daylight>).
 
 =head2 Accessors
 
@@ -104,6 +134,16 @@ Gives a short string representing the date, in C<YYYY-MM-DD> format.
 =head3 year, month, day
 
 The numbers defining the date.
+
+=head3 daypart
+
+A  number indicating  which part  of the  day. This  number should  be
+filled   and   compared   with   the   following   subroutines,   with
+self-documenting names:
+
+=item before-sunrise
+=item daylight
+=item after-sunset
 
 =head3 month-name
 
@@ -172,7 +212,7 @@ calendar, you can code:
 use Date::Calendar::Persian;
 use Date::Calendar::FrenchRevolutionary;
 
-my  Date::Calendar::Persian               $d-orig;
+my  Date::Calendar::Persian             $d-orig;
 my  Date::Calendar::FrenchRevolutionary $d-dest-push;
 my  Date::Calendar::FrenchRevolutionary $d-dest-pull;
 
@@ -238,123 +278,177 @@ variants of the date attribute. Not used with the Persian calendar.
 
 The allowed type codes are:
 
-=defn C<%a>
+=defn %a
 
 The abbreviated day of week.
 
-=defn C<%A>
+=defn %A
 
 The full day of week name.
 
-=defn C<%b>
+=defn %b
 
 The abbreviated month name.
 
-=defn C<%B>
+=defn %B
 
 The full month name.
 
-=defn C<%d>
+=defn %d
 
 The day of the month as a decimal number (range 01 to 31).
 
-=defn C<%e>
+=defn %e
 
 Like C<%d>, the  day of the month  as a decimal number,  but a leading
 zero is replaced by a space.
 
-=defn C<%f>
+=defn %f
 
 The month as a decimal number (1  to 12). Unlike C<%m>, a leading zero
 is replaced by a space.
 
-=defn C<%F>
+=defn %F
 
 Equivalent to %Y-%m-%d (the ISO 8601 date format)
 
-=defn C<%G>
+=defn %G
 
 The "week year"  as a decimal number. Mostly similar  to C<%Y>, but it
 may differ  on the very  first days  of the year  or on the  very last
 days. Analogous to the year number  in the so-called "ISO date" format
 for Gregorian dates.
 
-=defn C<%j>
+=defn %j
 
 The day of the year as a decimal number (range 001 to 366).
 
-=defn C<%m>
+=defn %m
 
 The month as a two-digit decimal  number (range 01 to 12), including a
 leading zero if necessary.
 
-=defn C<%n>
+=defn %n
 
 A newline character.
 
-=defn C<%t>
+=defn %Ep
+
+Gives a 1-char string representing the day part:
+
+=item C<☾> or C<U+263E> before sunrise,
+=item C<☼> or C<U+263C> during daylight,
+=item C<☽> or C<U+263D> after sunset.
+
+Rationale: in  C or in  other programming languages,  when C<strftime>
+deals with a date-time object, the day is split into two parts, before
+noon and  after noon. The  C<%p> specifier  reflects this by  giving a
+C<"AM"> or C<"PM"> string.
+
+The  3-part   splitting  in   the  C<Date::Calendar::>R<xxx>   may  be
+considered as  an alternate  splitting of  a day.  To reflect  this in
+C<strftime>, we use an alternate version of C<%p>, therefore C<%Ep>.
+
+=defn %t
 
 A tab character.
 
-=defn C<%u>
+=defn %u
 
 The day of week as a 1..7 number.
 
-=defn C<%V>
+=defn %V
 
 The week  number as defined above,  similar to the week  number in the
 so-called "ISO date" format for Gregorian dates.
 
-=defn C<%Y>
+=defn %Y
 
 The year as a decimal number.
 
-=defn C<%%>
+=defn %%
 
 A literal `%' character.
 
+=head1 BUGS AND ISSUES
 
+The astronomical  Persian calendar  is only partially  implemented. It
+can represent dates  only in the 1000  to 1800 years (1621  to 2421 in
+the Gregorian calendar).
+
+=head2 Security issues
+
+Another  issue,   as  explained  in   the  C<Date::Calendar::Strftime>
+documentation. Please ensure that  format-string passed to C<strftime>
+comes from a trusted source. Failing that, you could get a format that
+includes a outrageous length in a C<strftime> specifier, and you would
+drain your PC's RAM very fast.
+
+=head2 Relations with :ver<0.0.x> classes
+
+Version 0.1.0 (and API 1) was  introduced to ease the conversions with
+other calendars in  which the day is  defined as sunset-to-sunset.
+If all C<Date::Calendar::>R<xxx> classes use  version 0.1.x and API 1,
+the conversions will be correct. But if some C<Date::Calendar::>R<xxx>
+classes use version 0.0.x and API 0, there might be problems.
+
+A date from a 0.0.x class has no C<daypart> attribute. But when "seen"
+from  a  0.1.x class,  the  0.0.x  date  seems  to have  a  C<daypart>
+attribute equal to C<daylight>. When converted from a 0.1.x class to a
+0.0.x  class,  the  date  may  just  shift  from  C<after-sunset>  (or
+C<before-sunrise>) to C<daylight>, or it  may shift to the C<daylight>
+part of  the prior (or  next) date. This  means that a  roundtrip with
+cascade conversions  may give the  starting date,  or it may  give the
+date prior or after the starting date.
+
+=head2 Time
+
+This module  and the C<Date::Calendar::>R<xxx> associated  modules are
+still date  modules, they are not  date-time modules. The user  has to
+give  the C<daypart>  attribute  as a  value among  C<before-sunrise>,
+C<daylight> or C<after-sunset>. There is no provision to give a HHMMSS
+time and convert it to a C<daypart> parameter.
 
 =head1 SEE ALSO
 
 =head2 Raku Software
 
-L<Date::Calendar::Strftime>
+L<Date::Calendar::Strftime|https://raku.land/zef:jforget/Date::Calendar::Strftime>
 or L<https://github.com/jforget/raku-Date-Calendar-Strftime>
 
-L<Date::Calendar::Gregorian>
+L<Date::Calendar::Gregorian|https://raku.land/zef:jforget/Date::Calendar::Gregorian>
 or L<https://github.com/jforget/raku-Date-Calendar-Gregorian>
 
-L<Date::Calendar::Julian>
+L<Date::Calendar::Julian|https://raku.land/zef:jforget/Date::Calendar::Julian>
 or L<https://github.com/jforget/raku-Date-Calendar-Julian>
 
-L<Date::Calendar::Hebrew>
+L<Date::Calendar::Hebrew|https://raku.land/zef:jforget/Date::Calendar::Hebrew>
 or L<https://github.com/jforget/raku-Date-Calendar-Hebrew>
 
-L<Date::Calendar::Hijri>
+L<Date::Calendar::Hijri|https://raku.land/zef:jforget/Date::Calendar::Hijri>
 or L<https://github.com/jforget/raku-Date-Calendar-Hijri>
 
-L<Date::Calendar::CopticEthiopic>
+L<Date::Calendar::CopticEthiopic|https://raku.land/zef:jforget/Date::Calendar::CopticEthiopic>
 or L<https://github.com/jforget/raku-Date-Calendar-CopticEthiopic>
 
-L<Date::Calendar::MayaAztec>
+L<Date::Calendar::MayaAztec|https://raku.land/zef:jforget/Date::Calendar::MayaAztec>
 or L<https://github.com/jforget/raku-Date-Calendar-MayaAztec>
 
-L<Date::Calendar::FrenchRevolutionary>
+L<Date::Calendar::FrenchRevolutionary|https://raku.land/zef:jforget/Date::Calendar::FrenchRevolutionary>
 or L<https://github.com/jforget/raku-Date-Calendar-FrenchRevolutionary>
 
-L<Date::Calendar::Bahai>
+L<Date::Calendar::Bahai|https://raku.land/zef:jforget/Date::Calendar::Bahai>
 or L<https://github.com/jforget/raku-Date-Calendar-Bahai>
 
 =head2 Perl 5 Software
 
-L<Date::Persian::Simple>
+L<Date::Persian::Simple|https://metacpan.org/pod/Date::Persian::Simple>
 
 =head2 Other Software
 
 date(1), strftime(3)
 
-F<calendar/cal-persia.el>  in emacs  or xemacs.
+C<calendar/cal-persia.el>  in emacs  or xemacs.
 
 CALENDRICA 4.0 -- Common Lisp, which can be download in the "Resources" section of
 L<https://www.cambridge.org/us/academic/subjects/computer-science/computing-general-interest/calendrical-calculations-ultimate-edition-4th-edition?format=PB&isbn=9781107683167>
@@ -374,7 +468,7 @@ or L<https://www.cambridge.org/us/academic/subjects/computer-science/computing-g
 
 L<Claus Tøndering's FAQ|https://www.tondering.dk/claus/cal/persian.php>.
 
-L<https://www.funaba.org/cc>
+L<https://www.funaba.org/cc> (which seems no longer active)
 
 L<https://en.wikipedia.org/wiki/Iranian_calendars>
 
