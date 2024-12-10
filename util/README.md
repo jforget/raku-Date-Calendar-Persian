@@ -106,3 +106,9 @@ preceded  by two  spaces and  replacing "02"  by "2"  preceded by  one
 space.
 
 Insert the resulting text into `t/08-week.rakutest`.
+
+gener-test-0.1.0.raku
+=====================
+
+This script use 0.0.x modules to generate test data for 0.1.y modules.
+Read the instructions to use within the script's POD.

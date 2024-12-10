@@ -1,0 +1,19 @@
+#!/bin/sh
+# -*- encoding: utf-8; indent-tabs-mode: nil -*-
+#
+# Generate the POD6 documentation for the class Date::Calendar::Persian
+#
+
+export DOC=$THIS_DIR/doc
+
+raku --doc=HTML lib/Date/Calendar/Persian.rakumod               > $DOC/Persian.html
+raku --doc=HTML lib/Date/Calendar/Persian/Astronomical.rakumod  > $DOC/Persian-Astronomical.html
+raku --doc=HTML lib/Date/Calendar/Persian/Common.rakumod        > $DOC/Persian-Common.html
+raku --doc=HTML lib/Date/Calendar/Persian/Names.rakumod         > $DOC/Persian-Names.html
+
+case $1 in
+   --show)
+     cd $DOC
+     firefox Persian.html Persian-Astronomical.html Persian-Common.html Persian-Names.html
+     ;;
+esac

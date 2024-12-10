@@ -1,2 +1,5 @@
+*~
 .precomp/
+/blib/
+/doc/
 /Date-Calendar-Persian-*
