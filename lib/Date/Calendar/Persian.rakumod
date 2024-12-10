@@ -4,7 +4,7 @@ use Date::Calendar::Strftime;
 use Date::Calendar::Persian::Names;
 use Date::Calendar::Persian::Common;
 
-unit class Date::Calendar::Persian:ver<0.0.2>:auth<zef:jforget>:api<0>
+unit class Date::Calendar::Persian:ver<0.1.0>:auth<zef:jforget>:api<1>
       does Date::Calendar::Persian::Common
       does Date::Calendar::Strftime;
 
@@ -167,7 +167,7 @@ styles,  a "push"  conversion and  a "pull"  conversion. For  example,
 while  converting  "11  Bahman   1440"  to  the  French  Revolutionary
 calendar, you can code:
 
-=begin code :lang<perl6>
+=begin code :lang<raku>
 
 use Date::Calendar::Persian;
 use Date::Calendar::FrenchRevolutionary;
@@ -198,7 +198,7 @@ This method is  very similar to the homonymous functions  you can find
 in several  languages (C, shell, etc).  It also takes some  ideas from
 C<printf>-similar functions. For example
 
-=begin code :lang<perl6>
+=begin code :lang<raku>
 
 $df.strftime("%04d blah blah blah %-25B")
 

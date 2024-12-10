@@ -1,5 +1,5 @@
-use v6.c;
-unit class Date::Calendar::Persian::Names:ver<0.0.2>:auth<zef:jforget>:api<0>;
+use v6.d;
+unit class Date::Calendar::Persian::Names:ver<0.1.0>:auth<zef:jforget>:api<1>;
 
 my @month-names = ( "Farvardin"
                   , "Ordibehesht"
@@ -62,7 +62,7 @@ Date::Calendar::Persian::Names - string values for the Persian calendar
 
 =head1 SYNOPSIS
 
-=begin code :lang<perl6>
+=begin code :lang<raku>
 
 use Date::Calendar::Persian;
 

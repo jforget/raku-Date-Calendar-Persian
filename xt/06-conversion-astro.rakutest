@@ -1,7 +1,7 @@
 #
 # Checking the conversions when using the astronomical calendar
 #
-use v6.c;
+use v6.d;
 use Test;
 use Date::Calendar::Persian::Astronomical;
 
