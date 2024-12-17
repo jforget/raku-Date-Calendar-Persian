@@ -75,17 +75,17 @@ use Date::Calendar::Persian;
 my  Date::Calendar::Persian $d-pe;
 my  Date::Calendar::Hebrew  $d-he;
 
-$d-pe .= new(year => 1403, month => 8, day => 23, daypart => before-sunrise);
+$d-pe .= new(year => 1403, month => 8, day => 23, daypart => before-sunrise());
 $d-he .= new-from-date($d-pe);
 say $d-he.strftime("%A %d %B %Y");
 # ---> "Yom Reviʻi 12 Heshvan 5785"
 
-$d-pe .= new(year => 1403, month => 8, day => 23, daypart => daylight);
+$d-pe .= new(year => 1403, month => 8, day => 23, daypart => daylight());
 $d-he .= new-from-date($d-pe);
 say $d-he.strftime("%A %d %B %Y");
 # ---> "Yom Reviʻi 12 Heshvan 5785" again
 
-$d-pe .= new(year => 1403, month => 8, day => 23, daypart => after-sunset);
+$d-pe .= new(year => 1403, month => 8, day => 23, daypart => after-sunset());
 $d-he .= new-from-date($d-pe);
 say $d-he.strftime("%A %d %B %Y");
 # ---> "Yom Chamishi 13 Heshvan 5785" instead of "Yom Reviʻi 12 Heshvan 5785"
@@ -141,9 +141,9 @@ A  number indicating  which part  of the  day. This  number should  be
 filled   and   compared   with   the   following   subroutines,   with
 self-documenting names:
 
-=item before-sunrise
-=item daylight
-=item after-sunset
+=item before-sunrise()
+=item daylight()
+=item after-sunset()
 
 =head3 month-name
 
@@ -163,8 +163,8 @@ The weekday of the  date, as a 3-char string.
 
 =head3 daycount
 
-Convert  the date  to Modified  Julian Day  Number (a  day-only scheme
-based on 17 November 1858).
+The Modified Julian Day Number (a day-only scheme based on 17 November
+1858).
 
 =head3 day-of-week
 

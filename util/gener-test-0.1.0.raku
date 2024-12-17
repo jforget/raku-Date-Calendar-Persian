@@ -90,7 +90,7 @@ gener-maya('m2', 1403,  1, 20);
 gener-maya('a0', 1403, 10,  1);
 gener-maya('a1', 1402,  6, 10);
 say '-' x 50;
-say '10-conv-new.rakutest variables @data-to-do and @data';
+say '10-conv-new.rakutest variables @data';
 say @new-others.join("");
 say '-' x 50;
 say '10-conv-new.rakutest variable @data-maya';
@@ -226,11 +226,7 @@ version 0.0.2 and version 0.1.0).
 
 In C<xt/10-conv-new.rakutest>,  fill the C<@data-maya> array  with the
 lines listing  Maya and Aztec dates  and fill the C<@data>  array with
-the lines listing other dates. Then cut the lines listing the calendar
-not yet converted  to version 0.1.0 or  API 1 and paste  them into the
-C<@data-to-do>  array.  Then,  as  the other  modules  are  converted,
-cut-and-paste  the   corresponding  lines  from   C<@data-to-do>  into
-C<@data>.
+the lines listing other dates.
 
 Remember  that you  need to  erase the  first comma  in each  chunk of
 copied-pasted code.

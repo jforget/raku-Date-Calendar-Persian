@@ -1,4 +1,4 @@
-#!/home/jf/Documents/prog/rakudo/rakudo-2020.12/install/bin/perl6 -I../lib
+#!/usr/bin/env raku -I../lib
 # -*- encoding: utf-8; indent-tabs-mode: nil -*-
 
 use Date::Calendar::Persian;

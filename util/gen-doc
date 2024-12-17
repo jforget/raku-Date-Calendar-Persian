@@ -10,10 +10,11 @@ raku --doc=HTML lib/Date/Calendar/Persian.rakumod               > $DOC/Persian.h
 raku --doc=HTML lib/Date/Calendar/Persian/Astronomical.rakumod  > $DOC/Persian-Astronomical.html
 raku --doc=HTML lib/Date/Calendar/Persian/Common.rakumod        > $DOC/Persian-Common.html
 raku --doc=HTML lib/Date/Calendar/Persian/Names.rakumod         > $DOC/Persian-Names.html
+raku --doc=HTML util/gener-test-0.1.0.raku                      > $DOC/gener-test.html
 
 case $1 in
    --show)
      cd $DOC
-     firefox Persian.html Persian-Astronomical.html Persian-Common.html Persian-Names.html
+     firefox Persian.html Persian-Astronomical.html Persian-Common.html Persian-Names.html gener-test.html
      ;;
 esac
