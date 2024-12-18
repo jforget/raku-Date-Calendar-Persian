@@ -384,7 +384,7 @@ comes from a trusted source. Failing that, you could get a format that
 includes a outrageous length in a C<strftime> specifier, and you would
 drain your PC's RAM very fast.
 
-=head2 Relations with :ver<0.0.x> classes
+=head2 Relations with :ver<0.0.x> classes and with core class Date
 
 Version 0.1.0 (and API 1) was  introduced to ease the conversions with
 other calendars in  which the day is  defined as sunset-to-sunset.
@@ -400,6 +400,12 @@ C<before-sunrise>) to C<daylight>, or it  may shift to the C<daylight>
 part of  the prior (or  next) date. This  means that a  roundtrip with
 cascade conversions  may give the  starting date,  or it may  give the
 date prior or after the starting date.
+
+If you install C<<Date::Calendar::Persian:ver<0.1.0>>>, why would you
+refrain from upgrading other C<Date::Calendar::>R<xxxx> classes? So
+actually, this issue applies mainly to the core class C<Date>, because
+you may prefer avoiding the installation of
+C<Date::Calendar::Gregorian>.
 
 =head2 Time
 
