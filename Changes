@@ -1,6 +1,6 @@
 Revision history for Date-Calendar-Persian
 
-0.1.0, released on...
+0.1.0, released on Thursday 2024-12-19, or Panj shanbe 29 Azar 1403
     - add a "daypart" method, so the "after sunset" dates will be properly converted from / to sunset-to-sunset calendars
 
 0.0.2 released on Thursday 2024-10-24, or Panj shanbe  3 Aban 1403
