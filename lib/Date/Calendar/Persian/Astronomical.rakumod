@@ -84,7 +84,7 @@ Conversion with a calendar which defines days as sunset to sunset
 
 use Date::Calendar::Strftime;
 use Date::Calendar::Hebrew;
-use Date::Calendar::Persian;
+use Date::Calendar::Persian::Astronomical;
 my  Date::Calendar::Persian::Astronomical $d-pe;
 my  Date::Calendar::Hebrew                $d-he;
 
