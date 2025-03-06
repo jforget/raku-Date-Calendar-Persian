@@ -4,7 +4,7 @@ use Date::Calendar::Strftime;
 use Date::Calendar::Persian::Names;
 use Date::Calendar::Persian::Common;
 
-unit class Date::Calendar::Persian::Astronomical:ver<0.1.0>:auth<zef:jforget>:api<1>
+unit class Date::Calendar::Persian::Astronomical:ver<0.1.1>:auth<zef:jforget>:api<1>
       does Date::Calendar::Persian::Common
       does Date::Calendar::Strftime;
 
@@ -185,6 +185,13 @@ L<Claus Tøndering's FAQ|https://www.tondering.dk/claus/cal/persian.php>.
 
 L<https://www.funaba.org/cc> (which seems no longer active)
 
+L<https://www.fourmilab.ch/documents/calendar/>
+or its French-speaking version
+L<https://louis-aime.github.io/fourmilab_calendar_upgraded/index-fr.html>
+
+L<https://www.ephemeride.com/calendrier/autrescalendriers/21/autres-types-de-calendriers.html>
+(in French)
+
 L<https://en.wikipedia.org/wiki/Iranian_calendars>
 
 =head1 AUTHOR
@@ -193,7 +200,7 @@ Jean Forget <J2N-FORGET at orange dot fr>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2021, 2024 Jean Forget, all rights reserved.
+Copyright (c) 2021, 2024, 2025 Jean Forget, all rights reserved.
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 

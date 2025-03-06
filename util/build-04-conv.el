@@ -2,7 +2,7 @@
 ;; -*- encoding: utf-8; indent-tabs-mode: nil -*-
 ;;
 ;;     Emacs-Lisp script to build test data for Raku's Date::Calendar::Persian
-;;     Copyright (C) 2021, 2024 Jean Forget
+;;     Copyright (C) 2021, 2024, 2025 Jean Forget
 ;;
 ;;     This program is distributed under the GNU Public License version 1 or later
 ;;
