@@ -27,7 +27,7 @@ use Date::Calendar::Maya::Spinden;
 use Date::Calendar::Persian;
 use Date::Calendar::Persian::Astronomical;
 
-my $ver-pe = '0.1.0';
+my $ver-pe = '0.1.1';
 my @data  = (
        (1400,  7,  4, before-sunrise, 'ba', "Jamál 19 Izz 0178 ☾"       , "1sh 04 Meh 1400 ☾", "Gregorian: 2021-09-26")
      , (1400,  7,  4, daylight,       'ba', "Jamál 19 Izz 0178 ☼"       , "1sh 04 Meh 1400 ☼", "Gregorian: 2021-09-26")
@@ -38,9 +38,9 @@ my @data  = (
      , (1402,  2, 27, before-sunrise, 'co', "Peftoou 09 Pas 1739 ☾"     , "4sh 27 Ord 1402 ☾", "Gregorian: 2023-05-17")
      , (1402,  2, 27, daylight,       'co', "Peftoou 09 Pas 1739 ☼"     , "4sh 27 Ord 1402 ☼", "Gregorian: 2023-05-17")
      , (1402,  2, 27, after-sunset,   'co', "Ptiou 10 Pas 1739 ☽"       , "4sh 27 Ord 1402 ☽", "Gregorian: 2023-05-17")
-     , (1401,  4,  6, before-sunrise, 'et', "Maksegno 20 Sen 2014 ☾"    , "2sh 06 Tir 1401 ☾", "Gregorian: 2022-06-27")
-     , (1401,  4,  6, daylight,       'et', "Maksegno 20 Sen 2014 ☼"    , "2sh 06 Tir 1401 ☼", "Gregorian: 2022-06-27")
-     , (1401,  4,  6, after-sunset,   'et', "Rob 21 Sen 2014 ☽"         , "2sh 06 Tir 1401 ☽", "Gregorian: 2022-06-27")
+     , (1401,  4,  6, before-sunrise, 'et', "Sanyo 20 Sen 2014 ☾"       , "2sh 06 Tir 1401 ☾", "Gregorian: 2022-06-27")
+     , (1401,  4,  6, daylight,       'et', "Sanyo 20 Sen 2014 ☼"       , "2sh 06 Tir 1401 ☼", "Gregorian: 2022-06-27")
+     , (1401,  4,  6, after-sunset,   'et', "Maksanyo 21 Sen 2014 ☽"    , "2sh 06 Tir 1401 ☽", "Gregorian: 2022-06-27")
      , (1403,  9, 12, before-sunrise, 'fr', "Duodi 12 Fri 0233 ☾"       , "2sh 12 Aza 1403 ☾", "Gregorian: 2024-12-02")
      , (1403,  9, 12, daylight,       'fr', "Duodi 12 Fri 0233 ☼"       , "2sh 12 Aza 1403 ☼", "Gregorian: 2024-12-02")
      , (1403,  9, 12, after-sunset,   'fr', "Duodi 12 Fri 0233 ☽"       , "2sh 12 Aza 1403 ☽", "Gregorian: 2024-12-02")
